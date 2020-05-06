@@ -23,11 +23,19 @@ call plug#end()
 
 nnoremap <C-n> :NERDTreeToggle<CR>
 
-nnoremap <C-p> :FZF<CR>
+nnoremap <C-p> :Files<CR>
 nnoremap <C-h> :History<CR>
 nnoremap <C-b> :Buffers<CR>
 " apt install ripgrep
 nnoremap <C-f> :Rg<CR>
+
+
+"ripgrep
+if executable('rg')
+  let $FZF_DEFAULT_COMMAND = 'rg --files --hidden --follow'
+  "let $FZF_DEFAULT_COMMAND .= ' --no-ignore-vcs '
+  let $FZF_DEFAULT_COMMAND .= ' --glob "!.git/*" --glob "!**/.git/*" '
+endif
 
 
 """""""""
@@ -51,7 +59,6 @@ set laststatus=2
 
 
 set number
-set paste
 set clipboard=unnamedplus " apt install vim-gtk
 set autoindent
 set smartindent
@@ -84,7 +91,7 @@ set showmatch
 set nowrap
 
 set wildmenu
-set wildignore=*.o,*~,*.pyc
+set wildignore+=*.o,*~,*.pyc
 set wildignore+=*/.git/*,*/.hg/*,*/.svn/*,*/.DS_Store
 
 set ignorecase
