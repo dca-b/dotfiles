@@ -14,11 +14,13 @@ Plug 'morhetz/gruvbox'
 Plug 'preservim/nerdtree'
 Plug 'itchyny/lightline.vim'
 
-Plug 'junegunn/fzf'
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 
 Plug 'tpope/vim-surround'
 call plug#end()
+
+command! -bang -nargs=* OldGrep call fzf#vim#grep('grep -n --line-buffered -r --exclude-dir={node_modules,.svn,.git} --exclude=\*.{a,o} '.shellescape(<q-args>). ' .', 0, fzf#vim#with_preview(), <bang>0)
 
 
 nnoremap <C-n> :NERDTreeToggle<CR>
@@ -26,8 +28,8 @@ nnoremap <C-n> :NERDTreeToggle<CR>
 nnoremap <C-p> :Files<CR>
 nnoremap <C-h> :History<CR>
 nnoremap <C-b> :Buffers<CR>
-" apt install ripgrep
 nnoremap <C-f> :Rg<CR>
+"nnoremap <C-f> :OldGrep<CR>
 
 
 "ripgrep
@@ -58,7 +60,7 @@ endif
 set laststatus=2
 
 
-set number
+"set number
 set clipboard=unnamedplus " apt install vim-gtk
 set autoindent
 set smartindent
@@ -89,6 +91,7 @@ set so=8
 set ruler
 set showmatch 
 set nowrap
+set hidden
 
 set wildmenu
 set wildignore+=*.o,*~,*.pyc
